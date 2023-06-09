@@ -1,0 +1,176 @@
+[[extend 'layout.html']]
+
+<style>
+  .ingredients-list {
+  list-style-type: disc; 
+  margin-left: 1.5rem;  
+  }
+
+  .time-line {
+    height: 1px;
+    background-color: #808080;
+    margin: 10px auto;
+    width: 40%;
+    height: 2px;
+    opacity: 0.1;
+  }
+
+  .ingredient-line {
+    height: 1px;
+    background-color: #808080;
+    margin: 10px auto;
+    width: 100%; 
+    height: 2px;
+    opacity: 0.1;
+  }
+
+  .image-container {
+    position: relative;
+  }
+
+  .credit-overlay {
+    border-radius: 2px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    background-color: rgba(0, 0, 0, 0.4);
+    padding-left: 10px;  
+    padding-right: 10px;
+    color: white;
+    font-size: 10px;
+  }
+</style>
+
+<div class="section" style="margin: 2em 5em 0em 5em" id="vue">
+
+  <div class="container">
+  <!-- Vue method -->
+    <div class="columns is-multiline is-mobile">
+
+      <div class="column is-full pb-6">
+        <span class="title is-1 has-text-black has-text-weight-bold">
+          [[=recipe.title]]
+        </span>
+      </div>
+
+      <div class="column is-one-quarter">
+        <div class="has-text-black has-text-weight-bold is-capitalized" style="padding-left: 100px;">
+          [[=recipe.created_by.first_name]]
+          [[=recipe.created_by.last_name]]
+        </div>
+
+        <div style="padding-left: 100px;" class="pb-4">
+          [[=formatted_date]]
+        </div>
+
+        <div style="padding-left: 100px;">
+          <span class="icon is-small has-text-black">
+            <i class="fa fa-clock"></i>
+          </span>
+          <span class="has-text-black has-text-weight-semibold">Prep Time</span>
+          <div>
+            <span class="pl-5">[[=recipe.prep_time]]</span>
+            <span> minutes</span>
+          </div>
+        </div>
+
+        <div class="time-line"></div>
+        
+        <div style="padding-left: 100px;">
+          <span class="icon is-small has-text-black">
+            <i class="fa fa-clock"></i>
+          </span>
+          <span class="has-text-black has-text-weight-semibold">Cook Time</span>
+          <div>
+            <span class="pl-5">[[=recipe.cook_time]]</span>
+            <span> minutes</span>
+          </div>
+        </div>
+
+        <div class="favorite pt-4" style="padding-left: 125px;">
+          <span class="button is-rounded" v-if="!saved" v-on:click="save_recipe()">
+            <i class="fas fa-heart"></i>
+          </span>
+          <span class="button is-rounded" v-else v-on:click="save_recipe()">
+            <i class="fas fa-heart" style="color: #ff0000;"></i>
+          </span>
+        </div>
+        
+        <div class="has-text-weight-semibold" style="padding-left: 125px;">Favorite</div>
+
+      </div>
+
+      <div class="column is-three-quarters pb-6">
+
+        <div class="image-container">
+          <figure class="image is-3by2" v-if="recipe_img"> 
+            <img v-bind:src="recipe_img" alt="Image" style="border-radius: 20px;">
+            <div class="credit-overlay">
+              <span v-if="recipe_credit" class="credit-text">Credit: [[=recipe.credit]]</span>
+            </div>
+          </figure>
+        </div>
+      </div>
+
+      <div class="column is-full">
+        <i class="fa fa-utensils has-text-black"></i>
+        <span>|</span>
+        [[for tag in tags:]]
+          <span class="is-capitalized">[[=tag]] |</span>
+        [[pass]]
+      </div>
+
+      <div class="column is-full pb-6">
+        <span>
+          [[=recipe.description]]
+        </span>
+      </div>
+
+      <div class="column is-full has-text-black pb-6">
+        <span class="title is-3 has-text-weight-bold has-text-black">
+          Ingredients
+        </span>
+        <ul class="ingredients-list pt-4">
+          [[for ingredient in recipe.ingredients:]]
+            <li>[[=ingredient]]</li>
+            <div class="ingredient-line"></div>
+          [[pass]]
+        </ul>
+      </div>
+
+      <div class="column is-full has-text-black pb-6">
+        <span class="title is-3 has-text-weight-bold has-text-black">
+          Directions
+        </span>
+        <ul class="directions-list pt-2">
+          [[for step in steps:]]
+            <li class="pb-3" style="white-space: pre-wrap;">[[=step]]</li>
+          [[pass]]
+        </ul>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="column is-half is-flex is-justify-content-right">
+        <button v-if="owner" class="button is-size-5 has-background-black has-text-white has-text-weight-semibold" v-on:click="edit_recipe()">
+          Edit
+        </button>
+      </div>
+
+      <div class="column is-half is-flex is-justify-content-left">
+        <button v-if="owner" class="button is-size-5 has-background-black has-text-white has-text-weight-semibold" v-on:click="delete_recipe()">
+          Delete
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div> 
+
+[[block page_scripts]]
+<link rel="stylesheet" href="../static/css/mybulma/css/mystyles.css"> <!--Customized Bulma (Only the stuff we want)-->
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+<script src="js/recipe.js"></script>
+[[end]]

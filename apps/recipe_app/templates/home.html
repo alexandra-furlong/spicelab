@@ -1,0 +1,31 @@
+[[extend 'layout.html']]
+
+<html>
+  <head>
+    <link rel="stylesheet" href="css/home.css">
+    <link rel="stylesheet" href="css/effects.css">
+  </head>
+
+  <body>
+    <div class="center fade-in-image">
+        <img src="../static/images/home_welcome.png" width="50%"/>
+    </div>
+    <div class="second-segment scrollFade">
+        <img src="../static/images/home_food.jpg"/>
+        <div class="overlay-text-container">
+          <h1 class="scrollFade-text">Indulge in a symphony of flavors and unlock the secrets of extraordinary cuisine at our recipe website.</h1>
+        </div>
+    </div>
+    <div class="third-center">
+      <img src="../static/images/get_started.png" width="40%" style="padding-bottom: 40px"/>
+      <button class="get-started">
+        <a href="[[=URL('create_recipe')]]">WRITE MY RECIPES</a>
+      </button>
+      <button class="get-started">
+        <a href="[[=URL('browse_default_recipes')]]">EXPLORE RECIPES</a>
+      </button>
+    </div>
+  </body>
+
+  <script src="js/effects.js"></script>
+</html>

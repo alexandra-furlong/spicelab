@@ -1,0 +1,98 @@
+[[extend 'layout.html']]
+
+<div class="section" id="user-vue">
+    <div class="container">
+        <div class="heading-container">
+            <h1>
+                My Recipes
+            </h1>
+            <div class="spacer"></div>
+            <a href="[[=URL('create_recipe')]]">
+                <button class="button-new">
+                    <i class="fa fa-plus" aria-hidden="true"></i>
+                </button>
+            </a>
+            <div class="clear"></div>
+        </div>
+
+        <div class="spacer"></div>
+
+        <h2>
+            Created
+        </h2>
+
+        <div class="scrolling-wrapper" v-if="original.length > 0">
+            <button class="scroll-button left-paddle-1 hidden">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </button>
+            <div class="scroll-items-1">
+                <div class="card" v-for="recipe in original" v-on:click="go_to_recipe_page(recipe.id)">
+                    <div class="card-image" v-if="recipe.image != null">
+                        <img :src="recipe.image" alt="Recipe Image">
+                    </div>
+
+                    <div class="card-content">
+                        <h6>{{recipe.title}}</h6>
+                    </div>
+                    <span class="time">
+                        <i class="far fa-clock" aria-hidden="true"></i>
+                        <span>{{recipe.prep_time + recipe.cook_time}} minutes</span>
+                    </span>
+                    <div class="favorite">
+                        <span class="button" v-on:click="toggle_save(recipe, $event)">
+                            <i :class="{ 'fas fa-heart': (saved.map(recipe => recipe.id).includes(recipe.id)), 'far fa-heart': !(saved.map(recipe => recipe.id).includes(recipe.id)) }" style="color: #ff0000;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <button class="scroll-button right-paddle-1">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </button>
+        </div>
+        
+        <div class="spacer"></div>
+
+        <h2>
+            Saved
+        </h2>
+
+        <div class="scrolling-wrapper" v-if="saved.length > 0">
+            <button class="scroll-button left-paddle-2 hidden">
+                <i class="fa fa-arrow-left" aria-hidden="true"></i>
+            </button>
+            <div class="scroll-items-2">
+                <div class="card" v-for="recipe in saved" v-on:click="go_to_recipe_page(recipe.id)">
+                    <div class="card-image" v-if="recipe.image != null">
+                        <img :src="recipe.image" alt="Recipe Image">
+                    </div>
+                    <div class="card-content">
+                        <h6>{{recipe.title}}</h6>
+                    </div>
+                    <span class="time">
+                        <i class="far fa-clock" aria-hidden="true"></i>
+                        <span>{{recipe.prep_time + recipe.cook_time}} minutes</span>
+                    </span>
+                    <div class="favorite">
+                        <span class="button" v-on:click="toggle_save(recipe, $event)">
+                            <i class="fas fa-heart" style="color: #ff0000;"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <button class="scroll-button right-paddle-2">
+                <i class="fa fa-arrow-right" aria-hidden="true"></i>
+            </button>
+        </div>
+
+        <div class="bottom-spacer"></div>
+    </div>
+</div>
+
+
+[[block page_scripts]]
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="js/user_recipes.js"></script>
+  <link rel="stylesheet" href="css/pages.css">
+  <link rel="stylesheet" href="css/effects.css">
+[[end]]

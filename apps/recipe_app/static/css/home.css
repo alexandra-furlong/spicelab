@@ -1,0 +1,80 @@
+body {
+    margin: 0px;
+    padding:0px;
+}
+
+.center {
+  display: block;
+  margin-top: 2.5em;
+  margin-bottom: 15em;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.second-segment {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    width: 100vw;
+}
+.second-segment > img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.second-segment::before,
+.second-segment::after {
+  content: '';
+  position: absolute;
+  top: -20px; /* Adjust the top and bottom values to control the blur size */
+  left: 0;
+  right: 0;
+  height: 5px; /* Adjust the height to control the blur size */
+  background: inherit;
+  backdrop-filter: blur(2px); /* Adjust the blur radius as desired */
+  background: linear-gradient(to top, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0), rgba(255, 255, 255, 0), rgba(255, 255, 255, 1));
+  pointer-events: none;
+}
+
+.second-segment::before {
+  top: -10px;
+}
+
+.second-segment::after {
+  bottom: -10px;
+}
+
+.third-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    margin-top: 17em;
+    margin-bottom: 15em;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.get-started {
+    margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 16px 4px 16px;
+  gap: 8px;
+  border-radius: 24px;
+}
+
+.get-started a {
+  font-family: "Geneva";
+  letter-spacing: 0.01em;
+  font-size: 15px;
+  color: white;
+  background: #e9a135;
+}

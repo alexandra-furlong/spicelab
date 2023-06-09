@@ -1,0 +1,237 @@
+timestamp: 2023-04-30T22:24:48.543174
+CREATE TABLE "auth_user"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "username" CHAR(512) UNIQUE,
+    "email" CHAR(512) UNIQUE,
+    "password" CHAR(512),
+    "first_name" CHAR(512),
+    "last_name" CHAR(512),
+    "sso_id" CHAR(512),
+    "action_token" CHAR(512),
+    "last_password_change" TIMESTAMP,
+    "past_passwords_hash" TEXT
+);
+success!
+timestamp: 2023-04-30T22:24:48.562291
+CREATE TABLE "auth_user_tag_groups"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "tagpath" CHAR(512),
+    "record_id" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  
+);
+success!
+timestamp: 2023-05-09T22:45:34.484821
+CREATE TABLE "recipe"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "title" CHAR(512),
+    "prep_time" INTEGER,
+    "cook_time" INTEGER,
+    "description" TEXT,
+    "ingredients" TEXT,
+    "directions" TEXT,
+    "tags" TEXT,
+    "image" CHAR(512)
+);
+success!
+timestamp: 2023-05-09T22:45:34.810858
+CREATE TABLE "tag"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "name" CHAR(512)
+);
+success!
+timestamp: 2023-05-10T12:22:44.970930
+CREATE TABLE "user_search"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "tags" TEXT
+);
+success!
+timestamp: 2023-05-21T14:31:13.532543
+CREATE TABLE "recipe_tag_default"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "tagpath" CHAR(512),
+    "record_id" INTEGER REFERENCES "recipe" ("id") ON DELETE CASCADE ON UPDATE CASCADE  
+);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+timestamp: 2023-05-25T21:34:41.108451
+ALTER TABLE "recipe" ADD "created_by" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ;
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+timestamp: 2023-05-26T15:32:44.129683
+CREATE TABLE "saved_recipes"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "user" CHAR(512),
+    "saved_recipe_id" TEXT
+);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+timestamp: 2023-05-27T08:16:16.635467
+CREATE TABLE "saved_recipe"(
+    "id" INTEGER PRIMARY KEY AUTOINCREMENT,
+    "user" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ,
+    "saved_recipe_id" INTEGER REFERENCES "recipe" ("id") ON DELETE CASCADE ON UPDATE CASCADE  
+);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+timestamp: 2023-06-03T14:17:52.668948
+ALTER TABLE "recipe" ADD "credit" CHAR(512);
+timestamp: 2023-06-03T14:17:52.673949
+ALTER TABLE "recipe" ADD "created_on" TIMESTAMP;
+timestamp: 2023-06-03T14:17:52.677948
+ALTER TABLE "recipe" ADD "modified_on" TIMESTAMP;
+timestamp: 2023-06-03T14:17:52.680949
+ALTER TABLE "recipe" ADD "modified_by" INTEGER REFERENCES "auth_user" ("id") ON DELETE CASCADE ON UPDATE CASCADE  ;
+timestamp: 2023-06-03T14:17:52.683948
+ALTER TABLE "recipe" ADD "is_active" CHAR(1);
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!
+success!

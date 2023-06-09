@@ -1,0 +1,130 @@
+[[extend 'layout.html']]
+
+<style>
+  /* override placeholder font, size & color */
+  /* Unable to override input, but I can override textarea to match input. I just don't know what font input uses */
+  input::placeholder,
+  textarea::placeholder {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    color: #c2c2c2;
+    /* color: #999999; */
+  }
+
+</style>
+
+<div class="section" style="margin: 0em 6em 0em 6em" id="vue">
+
+  <div class="container">
+  <!-- Vue method -->
+    <div class="columns is-multiline is-mobile">
+
+      <div class="column is-full pb-6">
+        <h1 class="is-size-1 has-text-centered has-text-black has-text-weight-bold">
+          Create the perfect recipe!
+        </h1>
+      </div>
+
+      <div class="column is-half">
+        <span class="subtitle has-text-weight-semibold is-uppercase is-size-6">
+          Recipe Name
+          <input id="title" class="control" v-model="new_recipe.title" placeholder="Enter a name for your recipe..."/>
+        </span>
+      </div>
+
+      <div class="column is-one-quarter">
+        <span class="subtitle has-text-weight-semibold is-uppercase is-size-6">
+          Prep Time
+          <input id="prep_time" class="control" v-model="new_recipe.prep_time" placeholder="In minutes..."/>
+        </span>
+      </div>
+
+      <div class="column is-one-quarter pb-6">
+        <span class="subtitle has-text-weight-semibold is-uppercase is-size-6">
+          Cooking Time
+          <input id="cook_time" class="control" v-model="new_recipe.cook_time" placeholder="In minutes..."/>
+        </span>
+      </div>
+
+      <div class="column is-full pb-6">
+        <span class="subtitle has-text-weight-semibold is-uppercase is-size-6">
+          Brief Description
+          <textarea id="description" class="textarea" v-model="new_recipe.description" rows="4" placeholder="Enter recipe description..."></textarea>
+        </span>
+      </div>
+
+      <div class="column is-full pb-6">
+        <span class="subtitle has-text-weight-semibold is-uppercase is-size-6">
+          Ingredients
+          <textarea id="ingredients" class="textarea" v-model="new_recipe.ingredients" rows="4" placeholder="Enter each ingredient on a new line by pressing enter..."></textarea>
+        </span>
+      </div>
+      
+      <div class="column is-full">
+        <span class="subtitle has-text-weight-semibold is-uppercase is-size-6 pb-6">
+          Directions
+          <textarea id="directions" class="textarea" v-model="new_recipe.directions" rows="4" placeholder="Number each step of your recipe..."></textarea>
+        </span>
+      </div>
+
+      <div class="column is-full pb-6">
+        <span class="subtitle has-text-weight-semibold is-uppercase is-size-6">
+          Tags
+          <input id="new_tag" v-model="new_tag" placeholder="Enter a tag here, i.e. vegan, dairy-free, etc. then press enter" v-on:keyup.enter="add_tag()">
+
+          <!-- entered tags are displayed as removable buttons -->
+          <span v-for="tag in tags" :key="tag">
+            <button class="button is-small is-rounded is-outlined has-text-white has-background-black">
+              <span> {{ tag }} </span>
+              <span class="icon is-small" v-on:click="remove_tag(tag)">
+                <i class="fas fa-times" ></i>
+              </span>
+            </button>
+          </span>
+
+        </span>  
+      </div>
+
+      <div class="column is-full">
+        <span class="subtitle has-text-weight-semibold is-uppercase is-size-6">
+          Recipe Credit
+          <input id="credit" class="control" v-model="new_recipe.credit" placeholder="Optionial, credit original creator..."/>
+        </span>
+      </div>
+
+      <div class="column is-full pb-6">
+        <span class="subtitle has-text-weight-semibold is-uppercase is-size-6">
+          Recipe Image
+          <!-- Recipe Image Upload Button -->
+          <p class="control">
+            <div class="file is-black">
+              <label class="file-label">
+                <span class="file-cta">
+                  <input class="file-input" type="file" accept=".jpg, .png, .jpeg" @change="upload_file">
+                  </span>
+                </span>
+              </label>
+            </div>
+          </p>
+        </span>   
+      </div>
+
+      <!-- Submit Button -->
+      <div class="column is-full is-flex is-justify-content-center">
+        <button class="button is-size-5 has-background-black has-text-white has-text-weight-semibold" v-on:click="post_new_recipe()">
+          Submit
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+
+</div> 
+
+[[block page_scripts]]
+<link rel="stylesheet" href="../static/css/mybulma/css/mystyles.css"> <!--Customized Bulma (Only the stuff we want)-->
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+<script src="js/create_recipe.js"></script>
+[[end]]

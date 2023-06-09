@@ -1,0 +1,66 @@
+[[extend 'layout.html']]
+
+<!--
+  Bulma things this page uses:
+  - Button
+  - Color helpers
+  - tiles
+  - notification colors
+  - container
+  - Padding (which might come from the fact that it uses Bulma at all)
+  - Alignment
+-->
+
+<div class="section" style="margin: 0em 6em 0em 6em" id="vue">
+  <div class="search_area">
+    <h1>Find the perfect recipe!</h1>
+    <h4>High-quality recipes written here at Spice Lab</h4>
+    <p>
+      Entering tags will filter the recipes to only ones containing those tags.
+      When you enter a tag, it will only appear if it exists within the database.
+    </p>
+    <p>Try these tags: vegetarian, dairy-free, gluten-free, lunch, dinner, dessert, noodles, korean</p>
+    <input placeholder="Type a tag here, then press enter" v-model="tag" v-on:keyup.enter="add_tag">
+    <div>Tags:
+      <div class="button is-primary is-rounded" v-for="entry in search_tag_names">{{entry}} <span v-on:click="remove_tag(entry)">✕</span></div>
+    </div>
+  </div>
+  
+  <p>Results:</p>
+  <br></br>
+  <!--List of results-->
+  <div class="tile is-ancestor is-vertical">
+    <div class="tile is-parent" v-for="(row, row_index) in recipes">
+      <article class="recipe-title tile is-child is-3 notification is-primary"
+      v-for="(recipe, column_index) in recipes[row_index]" v-on:click="go_to_recipe_page(recipe.id)">
+        <p class="has-text-left has-text-weight-semibold is-underlined">{{recipe.title}}</p>
+        <div class="card-image" v-if="recipe.image != null">
+          <img :src="recipe.image" alt="Recipe Image">
+        </div>
+        <p class="has-text-left"><i class="fa fa-clock"></i> {{recipe.prep_time + recipe.cook_time}} minutes</p>
+        <a class="has-text-left is-underlined" v-if="!recipe.saved" v-on:click="save_recipe(row_index, column_index, $event)">Save</a>
+        <a class="has-text-left is-underlined" v-else v-on:click="save_recipe(row_index, column_index, $event)">Unsave</a>
+        <!-- Could also list tags here-->
+        <p class="has-text-left has-text-light">Tags: <span v-for="tag in recipe.tags">{{tag}}, </span></p>
+      </article>
+    </div>
+  </div>
+
+  <!--Pagination-->
+  <div class="container has-text-centered">
+    <button class="button" v-if="current_page > 1" v-on:click="load_recipes(current_page - 1)"><</button>
+    <button class="button" v-else disabled><</button>
+    <button class="button">Page {{current_page}}</button>
+    <button class="button" v-if="reached_last_page" disabled>></button>
+    <button class="button" v-else v-on:click="load_recipes(current_page + 1)">></button>
+  </div>
+  
+</div>
+
+[[block page_scripts]]
+<link rel="stylesheet" href="css/browse_default_recipes.css">
+<link rel="stylesheet" href="../static/css/mybulma/css/mystyles.css"> <!--Customized Bulma (Only the stuff we want)-->
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.4.0/axios.min.js"></script>
+<script src="js/browse_default_recipes.js"></script>
+[[end]]
