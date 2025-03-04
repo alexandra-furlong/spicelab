@@ -1,6 +1,6 @@
-#SpiceLab
+# SpiceLab
 
-## Emails of all project members:
+## Emails of all group members:
 
 hye26@ucsc.edu
 
