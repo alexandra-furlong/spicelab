@@ -1,10 +1,4 @@
-# cse183-group-project
-
-## Project Title:
-
-Recipe App
-
-
+#SpiceLab
 
 ## Emails of all project members:
 
